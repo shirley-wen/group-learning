@@ -1,3 +1,5 @@
 # sql学习
-## mysql的配置
+* MySQL的配置
+*
+## Mysql的配置
 
