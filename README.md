@@ -34,6 +34,7 @@ select * from products;
 
 ## python3与MySQL
 库: pymysql
+
 命令行安装pymysql
 ```
 $ pip install PyMySQL
