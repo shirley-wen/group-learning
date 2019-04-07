@@ -2,6 +2,7 @@
 * MySQL的配置
 * SQL分类
 * 数据库管理
+* python3与MySQL
 ## Mysql的配置
 一般可直接启动服务，不需要设置参数，若要修改默认值，则必须配置参数文件。
 文件名类似于my.ini
@@ -29,3 +30,12 @@ desc products;
 show create table products;
 #查看表中的记录
 select * from products;
+```
+
+## python3与MySQL
+库: pymysql
+命令行安装pymysql
+```
+$ pip install PyMySQL
+```
+
