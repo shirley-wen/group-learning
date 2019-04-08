@@ -46,4 +46,25 @@ $ pip install PyMySQL
 ```
 ## 创建计算字段
 计算字段：利用存储在数据库表中的数据产生的新的字段
-##### 拼接字段
+#### 拼接字段
+例：创建由两列组成的标题，输出vend_name (vend_country)
+```
+SELECT Concat(vend_name, ' (', vend_country, ')')
+FROM Vendors
+ORDER BY vend_name;
+```
+使用别名，使客户端能够应用
+```
+SELECT Concat(vend_name, ' (', vend_country, ')') AS vend_title
+FROM Vendors
+ORDER BY vend_name;
+```
+#### 执行算术计算
+例：汇总物品价格（单价乘以订购数）
+```
+SELECT prod_id, quantity, item_price, quantity*item_price AS expanded_price
+FROM OrderItems
+Where order_num = 20008;
+```
+基本算术操作符：+，-，*，/
+## 函数
