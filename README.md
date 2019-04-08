@@ -3,6 +3,12 @@
 * SQL分类
 * 数据库管理
 * python3与MySQL
+* 创建计算字段
+* 函数
+* 分组
+* 子查询
+* 联结
+* 组合查询
 ## Mysql的配置
 一般可直接启动服务，不需要设置参数，若要修改默认值，则必须配置参数文件。
 文件名类似于my.ini
@@ -31,7 +37,6 @@ show create table products;
 #查看表中的记录
 select * from products;
 ```
-
 ## python3与MySQL
 库: pymysql
 
@@ -39,4 +44,6 @@ select * from products;
 ```
 $ pip install PyMySQL
 ```
-
+## 创建计算字段
+计算字段：利用存储在数据库表中的数据产生的新的字段
+##### 拼接字段
