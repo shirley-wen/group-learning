@@ -239,3 +239,36 @@ ON C.cust_id = O.cust_id
 GROUP BY C.cust_id;
 ```
 ## 组合查询
+利用UNION操作符将多条SELECT语句组成一个结果集
+
+例：需要Illinois,Indiana和Michigan的所有顾客报表，以及不管哪个州的所有Fun4All
+```
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN ('IN', 'IL', 'MI')
+UNION
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_name = 'Fun4All';
+```
+UNION自动去除了重复的行，UNION ALL可返回所有
+```
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN ('IN', 'IL', 'MI')
+UNION ALL
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_name = 'Fun4All';
+```
+当想对结果集排序，将ORDER BY放在最后面
+```
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN ('IN', 'IL', 'MI')
+UNION
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_name = 'Fun4All'
+ORDER BY cust_name, cust_contact;
+```
