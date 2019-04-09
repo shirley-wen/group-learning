@@ -157,6 +157,48 @@ WHERE order_num IN (SELECT order_num FROM OrderItems WHERE prod_id = 'RGAN01');
 ```
 想要进一步获得顾客信息
 ```
-SELECT cust_id 
-FROM Orders
-WHERE order_num IN (SELECT order_num FROM OrderItems WHERE prod_id = 'RGAN01');
+SELECT cust_name, cust_contact 
+FROM Customers
+WHERE cust_id IN (SELECT cust_id FROM Orders WHERE order_num IN (SELECT order_num FROM OrderItems WHERE prod_id = 'RGAN01'));
+```
+过多嵌套效率低，并非最佳方法，联结更佳
+#### 作为计算字段使用子查询
+例：显示Customers表中每个顾客的订单总数
+```
+SELECT cust_name, cust_state, (SELECT COUNT(*) FROM Orders WHERE Orders.cust_id = Customers.cust_id ) AS orders
+FROM Customers
+ORDER BY cust_name;
+```
+完全限定列名！
+## 联结
+SELECT能执行的最重要的操作,可以将存在多个表的信息通过联结用一条SELECT语句检索
+#### 创建联结
+```
+SELECT vend_name, prod_name, prod_price 
+FROM Vendors, Products
+WHERE Vendors.vend_id = Products.vend_id;
+```
+两个表用WHERE子句联结，进行配对，不要忘记
+#### 内联结
+基于表的相等测试，又称等值联结
+```
+SELECT vend_name, prod_name, prod_price 
+FROM Vendors INNER JOIN Products
+WHERE Vendors.vend_id = Products.vend_id;
+```
+联结多个表，子查询的例子用联结完成，速度更快
+```
+SELECT cust_name, cust_contact
+FROM Customers, Orders, OrderItems
+WHERE Customers.cust_id = Orders.cust_id AND Orders.order_num = OrderItems.order_num AND OrderItems.prod_id = 'RGAN01';
+```
+#### 使用表别名
+```
+SELECT cust_name, cust_contact
+FROM Customers AS C, Orders AS O, OrderItems AS OI
+WHERE C.cust_id = O.cust_id AND O.order_num = OI.order_num AND OI.prod_id = 'RGAN01';
+```
+练习：显示订单20007的prod_name, vend_name, prod_price, quantity
+#### 自联结
+从相同的表中检索数据
+例：
