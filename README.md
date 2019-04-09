@@ -171,7 +171,7 @@ ORDER BY cust_name;
 ```
 完全限定列名！
 ## 联结
-SELECT能执行的最重要的操作,可以将存在多个表的信息通过联结用一条SELECT语句检索
+SELECT能执行的最重要的操作,可以将存在多个表的信息通过联结用一条SELECT语句检索,比子查询快
 #### 创建联结
 ```
 SELECT vend_name, prod_name, prod_price 
@@ -184,7 +184,7 @@ WHERE Vendors.vend_id = Products.vend_id;
 ```
 SELECT vend_name, prod_name, prod_price 
 FROM Vendors INNER JOIN Products
-WHERE Vendors.vend_id = Products.vend_id;
+ON Vendors.vend_id = Products.vend_id;
 ```
 联结多个表，子查询的例子用联结完成，速度更快
 ```
@@ -201,4 +201,41 @@ WHERE C.cust_id = O.cust_id AND O.order_num = OI.order_num AND OI.prod_id = 'RGA
 练习：显示订单20007的prod_name, vend_name, prod_price, quantity
 #### 自联结
 从相同的表中检索数据
-例：
+
+例：找到Jim Jones同一公司的所有顾客
+```
+SELECT C1.cust_id, C1.cust_name, C1.cust_contact
+FROM Customers AS C1, Customers AS C2
+WHERE C1.cust_name = C2.cust_name AND C2.cust_contact = 'Jim Jones';
+```
+#### 自然联结
+内联结相同的列可能出现多次，自然联结派出多次出现，每列只返回一次，但不怎么会用到
+```
+SELECT C.*, O.*
+FROM Customers AS C, Orders AS O
+WHERE C.cust_id = O.cust_id;
+```
+#### 外联结
+联结包含了哪些在相关表中没有关联行的行
+
+例：检索所有顾客及订单
+```
+#内联结
+SELECT C.cust_id, O.order_num
+FROM Customers AS C INNER JOIN Orders AS O
+ON C.cust_id = O.cust_id;
+#外联结
+SELECT C.cust_id, O.order_num
+FROM Customers AS C LEFT OUTER JOIN Orders AS O
+ON C.cust_id = O.cust_id;
+```
+LEFT OUTER JOIN使用左边的表的所有行
+#### 使用带聚集函数的联结
+例：要检索所有顾客及每个顾客所下的订单数
+```
+SELECT C.cust_id, COUNT(O.order_num) AS num_ord
+FROM Customers AS C LEFT OUTER JOIN Orders AS O
+ON C.cust_id = O.cust_id
+GROUP BY C.cust_id;
+```
+## 组合查询
