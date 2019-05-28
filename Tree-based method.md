@@ -22,7 +22,7 @@ R1, R2, . . . , RJ.
   划分越多的区域在训练集肯定效果会更好，但有过拟合风险，在测试集效果可能很差，因为这棵树过于复杂，所以需要进行剪枝，获得一棵更小的树。  
   如何剪枝？  
   先生成一颗大树T0，通过cross-validation error或验证集的RSS来决定剪多少。但对每一棵子树验证的代价太大，我们可以通过在cost function中增加树的复杂项考虑一个序列的子树。最小化  
-  
+ ![tree4](https://github.com/shirley-wen/group-learning/blob/master/图片/4.png)   
   α是一个非负的参数，|T|是叶节点的个数，回归树的算法：
 1. Use recursive binary splitting to grow a large tree on the training data, stopping only when each terminal node has fewer than some
 minimum number of observations.
